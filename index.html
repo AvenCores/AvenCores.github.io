@@ -10,8 +10,8 @@
     <link rel="canonical" href="https://avencores.github.io/goida-vpn-site/">
     <meta name="description" content="Переадресация на Goida VPN Site">
 
-    <!-- Security -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+    <!-- Security: исправлен CSP — добавлены домены Google Fonts -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:;">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="Referrer-Policy" content="no-referrer">
 
@@ -19,22 +19,30 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
 
-    <!-- Redirect: Meta Refresh -->
+    <!-- Preconnect для ускорения загрузки шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Шрифты через <link> вместо @import — быстрее -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400&display=swap">
+
+    <!-- Preload редирект-URL -->
+    <link rel="preload" href="https://avencores.github.io/goida-vpn-site/" as="document">
+
+    <!-- Meta Refresh как запасной вариант -->
     <meta http-equiv="refresh" content="3; url=https://avencores.github.io/goida-vpn-site/">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400&display=swap');
-
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
             --bg: #0a0c10;
-            --surface: #111318;
+            --surface: rgba(255,255,255,0.04);
+            --surface-border: rgba(255,255,255,0.08);
             --accent: #00e5ff;
             --accent2: #7b61ff;
             --text: #e8eaf0;
             --muted: #5a6070;
-            --border: rgba(255,255,255,0.07);
         }
 
         html, body {
@@ -69,31 +77,50 @@
             opacity: 0.4;
         }
 
+        /* Glassmorphism карточка */
+        .card {
+            position: relative;
+            z-index: 1;
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.8rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,0.03),
+                0 24px 64px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.06);
+            animation: fadein 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
         .container {
             position: relative;
             z-index: 1;
             height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 2rem;
             padding: 2rem;
         }
 
         /* Spinner */
         .spinner-wrap {
             position: relative;
-            width: 80px;
-            height: 80px;
+            width: 72px;
+            height: 72px;
             animation: fadein 0.6s ease both;
         }
 
         .spinner {
-            width: 80px;
-            height: 80px;
+            width: 72px;
+            height: 72px;
             border-radius: 50%;
-            border: 2px solid var(--border);
+            border: 2px solid rgba(255,255,255,0.06);
             border-top-color: var(--accent);
             animation: spin 1s linear infinite;
         }
@@ -102,18 +129,18 @@
             position: absolute;
             inset: 10px;
             border-radius: 50%;
-            border: 2px solid var(--border);
+            border: 2px solid rgba(255,255,255,0.06);
             border-bottom-color: var(--accent2);
             animation: spin 1.5s linear infinite reverse;
         }
 
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Logo / Brand */
+        /* Brand */
         .brand {
             font-family: 'Syne', sans-serif;
             font-weight: 800;
-            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            font-size: clamp(1.6rem, 5vw, 2.4rem);
             letter-spacing: -0.02em;
             background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
             -webkit-background-clip: text;
@@ -123,18 +150,19 @@
         }
 
         .subtitle {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: var(--muted);
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            animation: fadein 0.6s 0.2s ease both;
+            margin-top: -1rem;
+            animation: fadein 0.6s 0.15s ease both;
         }
 
-        /* Counter */
+        /* Counter — добавлен aria-live для скринридеров */
         .counter-row {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
             animation: fadein 0.6s 0.3s ease both;
         }
 
@@ -155,9 +183,9 @@
 
         /* Progress bar */
         .progress-track {
-            width: min(320px, 80vw);
+            width: min(260px, 75vw);
             height: 2px;
-            background: var(--border);
+            background: rgba(255,255,255,0.06);
             border-radius: 99px;
             overflow: hidden;
             animation: fadein 0.6s 0.35s ease both;
@@ -168,15 +196,16 @@
             width: 0%;
             border-radius: 99px;
             background: linear-gradient(90deg, var(--accent), var(--accent2));
+            /* Синхронизировано с реальным редиректом — 3 секунды */
             animation: progress 3s linear forwards;
             box-shadow: 0 0 8px var(--accent);
         }
 
         @keyframes progress { to { width: 100%; } }
 
-        /* Fallback link */
+        /* Fallback */
         .fallback {
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             color: var(--muted);
             animation: fadein 0.6s 0.5s ease both;
         }
@@ -194,49 +223,64 @@
         }
 
         @keyframes fadein {
-            from { opacity: 0; transform: translateY(8px); }
+            from { opacity: 0; transform: translateY(10px); }
             to   { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="spinner-wrap">
-            <div class="spinner"></div>
-            <div class="spinner-inner"></div>
-        </div>
+        <!-- role="main" для доступности -->
+        <main class="card" role="main">
+            <div class="spinner-wrap" aria-hidden="true">
+                <div class="spinner"></div>
+                <div class="spinner-inner"></div>
+            </div>
 
-        <div class="brand">Goida VPN Site</div>
-        <div class="subtitle">Переадресация</div>
+            <div class="brand">Goida VPN Site</div>
+            <div class="subtitle">Переадресация</div>
 
-        <div class="counter-row">
-            <span class="counter-label">Через</span>
-            <span class="counter-num" id="count">3</span>
-            <span class="counter-label">сек.</span>
-        </div>
+            <div class="counter-row">
+                <span class="counter-label">Через</span>
+                <!-- aria-live="polite" — скринридер объявляет изменения счётчика -->
+                <span class="counter-num" id="count" aria-live="polite" aria-label="секунд до переадресации">3</span>
+                <span class="counter-label">сек.</span>
+            </div>
 
-        <div class="progress-track">
-            <div class="progress-fill"></div>
-        </div>
+            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="3" aria-valuenow="3" aria-label="Прогресс переадресации">
+                <div class="progress-fill"></div>
+            </div>
 
-        <p class="fallback">
-            Не перенаправляет? <a href="https://avencores.github.io/goida-vpn-site/" rel="noopener noreferrer">Нажмите здесь</a>
-        </p>
+            <p class="fallback">
+                Не перенаправляет? <a href="https://avencores.github.io/goida-vpn-site/" rel="noopener noreferrer">Нажмите здесь</a>
+            </p>
+        </main>
     </div>
 
     <script>
-        // Countdown
-        let n = 3;
+        const REDIRECT_URL = "https://avencores.github.io/goida-vpn-site/";
+        const DELAY_MS = 3000;
+
+        // Счётчик — обновляет aria-valuenow для доступности
+        let n = DELAY_MS / 1000;
         const el = document.getElementById('count');
+        const progressBar = document.querySelector('[role="progressbar"]');
+
         const interval = setInterval(() => {
             n--;
             el.style.opacity = '0';
-            setTimeout(() => { el.textContent = n; el.style.opacity = '1'; }, 150);
+            setTimeout(() => {
+                el.textContent = n;
+                el.style.opacity = '1';
+                if (progressBar) progressBar.setAttribute('aria-valuenow', n);
+            }, 150);
             if (n <= 0) clearInterval(interval);
         }, 1000);
 
-        // Redirect
-        window.location.replace("https://avencores.github.io/goida-vpn-site/");
+        // Редирект через setTimeout — теперь синхронизирован с отсчётом
+        setTimeout(() => {
+            window.location.replace(REDIRECT_URL);
+        }, DELAY_MS);
     </script>
 </body>
 </html>
