@@ -6,7 +6,7 @@
     <title>Переадресация | Goida VPN</title>
 
     <meta name="robots" content="noindex, nofollow">
-    <meta name="description" content="Переадресация на актуальную версию сайта Goida VPN Configs.">
+    <meta name="description" content="Автоматическое перенаправление на основной сайт Goida VPN Configs.">
     <link rel="canonical" href="https://avencores.github.io/goida-vpn-site/">
     <link rel="preload" href="https://avencores.github.io/goida-vpn-site/" as="document">
     <meta http-equiv="refresh" content="3; url=https://avencores.github.io/goida-vpn-site/">
@@ -350,43 +350,12 @@
             animation: progress 3s linear forwards;
         }
 
-        .tag-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 18px;
-        }
-
-        .tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 12px;
-            border-radius: 999px;
-            border: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.46);
-            color: var(--muted);
-            font-size: 0.86rem;
-            font-weight: 700;
-        }
-
-        html.dark .tag {
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        .tag-icon {
-            width: 8px;
-            height: 8px;
-            border-radius: 999px;
-            background: linear-gradient(135deg, var(--brand-highlight), var(--brand));
-        }
-
         .actions {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             gap: 12px;
-            margin-top: 24px;
+            margin-top: 28px;
         }
 
         .button {
@@ -549,16 +518,15 @@
                     <div>
                         <p class="brand-kicker">Goida VPN Configs</p>
                         <h1 class="title">
-                            Открываем
-                            <span class="title-accent">актуальную версию сайта</span>
+                            Переходим на
+                            <span class="title-accent">основной сайт</span>
                         </h1>
                     </div>
                 </div>
 
                 <p class="lead">
-                    Через несколько секунд вы перейдёте на основную страницу с конфигами,
-                    инструкциями и актуальными ссылками. Страница оформлена в том же стиле,
-                    что и сам сайт: мягкий фон, стеклянная панель и фирменные сине-жёлтые акценты.
+                    Через несколько секунд откроется актуальная версия сайта Goida VPN Configs.
+                    Если автоматический переход не сработает, воспользуйтесь кнопкой ниже.
                 </p>
 
                 <div class="status-grid">
@@ -571,7 +539,7 @@
                     </article>
 
                     <article class="metric-card">
-                        <p class="metric-label">Целевая страница</p>
+                        <p class="metric-label">Адрес перехода</p>
                         <p class="destination">https://avencores.github.io/goida-vpn-site/</p>
                     </article>
                 </div>
@@ -586,21 +554,6 @@
                     </div>
                 </div>
 
-                <div class="tag-row" aria-hidden="true">
-                    <div class="tag">
-                        <span class="tag-icon"></span>
-                        <span>Светлая и тёмная тема</span>
-                    </div>
-                    <div class="tag">
-                        <span class="tag-icon"></span>
-                        <span>Тот же брендинг сайта</span>
-                    </div>
-                    <div class="tag">
-                        <span class="tag-icon"></span>
-                        <span>Ручной переход доступен</span>
-                    </div>
-                </div>
-
                 <div class="actions">
                     <a class="button button-primary" id="manual-link" href="https://avencores.github.io/goida-vpn-site/">
                         <svg class="button-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -611,13 +564,13 @@
                     </a>
 
                     <div class="note">
-                        Если переход не начался автоматически, откройте страницу вручную по этой
+                        Если страница не открылась автоматически, перейдите по этой
                         <a href="https://avencores.github.io/goida-vpn-site/">ссылке</a>.
                     </div>
                 </div>
 
                 <noscript>
-                    <p class="note">JavaScript отключён, поэтому переход выполнится через встроенный `meta refresh`.</p>
+                    <p class="note">Если JavaScript отключён, браузер выполнит переход автоматически через несколько секунд.</p>
                 </noscript>
             </div>
         </section>
