@@ -22,7 +22,7 @@
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/AvenCores/AvenCores.github.io?style=for-the-badge)](https://github.com/AvenCores/goida-vpn-site/pulls)
 [![GitHub issues](https://img.shields.io/github/issues/AvenCores/AvenCores.github.io?style=for-the-badge)](https://github.com/AvenCores/goida-vpn-site/issues)
 
-<img width="2560" height="1271" alt="chrome_XBv3J3lpo1" src="https://github.com/user-attachments/assets/946b9a0f-ed88-4463-8e44-cbe4d4f3fa58" />
+<img alt="chrome_XBv3J3lpo1" src="https://github.com/user-attachments/assets/946b9a0f-ed88-4463-8e44-cbe4d4f3fa58" />
 
 Статический GitHub Pages-репозиторий с одностраничной страницей-перенаправлением для `Goida VPN Configs`.
 
